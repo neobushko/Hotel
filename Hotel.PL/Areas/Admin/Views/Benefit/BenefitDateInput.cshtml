@@ -1,0 +1,32 @@
+﻿@model Hotel.PL.Models.BenefitModel
+
+@{
+    ViewData["Title"] = "BenefitDateInput";
+}
+
+<h1>BenefitDateInput</h1>
+
+<h4>BenefitModel</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="BenefitPeriodCalc" method="get">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="StartPeriod" class="control-label"></label>
+                <input asp-for="StartPeriod" class="form-control" />
+                <span asp-validation-for="StartPeriod" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EndPeriod" class="control-label"></label>
+                <input asp-for="EndPeriod" class="form-control" />
+                <span asp-validation-for="EndPeriod" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+

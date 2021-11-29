@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using Microsoft.AspNetCore.Authorization;
+using AutoMapper;
 using Hotel.BLL.DTO;
 using Hotel.BLL.Interfaces;
 using Hotel.PL.Models;
@@ -9,8 +10,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Hotel.PL.Controllers
+namespace Hotel.PL.Areas.Admin.Controllers
 {
+    [Area("Admin")]
+    [Authorize(Roles = "Admin")]
     public class PriceForCategoryController : Controller
     {
         private IPriceForCategoryService priceCategoryService;
@@ -92,8 +95,7 @@ namespace Hotel.PL.Controllers
         }
 
         // GET: priceCategoryController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
+        [HttpGet]
         public ActionResult Delete(PriceForCategoryModel price)
         {
             try

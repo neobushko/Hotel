@@ -1,25 +1,55 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Hotel";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
-<div class="align-content-center">
-    <form method="post" asp-controller="Room" asp-action="AllRooms">
-        <button class="btn btn-primary" type="submit">All rooms</button>
-    </form>
-    <form method="post" asp-controller="Category" asp-action="AllCategories">
-        <button class="btn btn-primary" type="submit">All Categories</button>
-    </form>
-    <form method="post" asp-controller="User" asp-action="AllUsers">
-        <button class="btn btn-primary" type="submit">All Users</button>
-    </form>
-    <form method="post" asp-controller="PriceForCategory" asp-action="AllPrices">
-        <button class="btn btn-primary" type="submit">All Prices</button>
-    </form>
-    <form method="post" asp-controller="Record" asp-action="AllRecords">
-        <button class="btn btn-primary" type="submit">All Records</button>
-    </form>
-</div>
+<!-- Hero Section Begin -->
+<section class="hero-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="hero-text">
+                    <h1>Hotel</h1>
+                    <form method="post" asp-area="" asp-controller="Room" asp-action="AllRooms">
+                        <button class="btn btn-primary" type="submit">Show me all Rooms</button>
+                    </form>                    
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Hero Section End -->
+<!-- About Us Section Begin -->
+<section class="aboutus-section spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="about-text">
+                    <div class="section-title">
+                        <span>About us</span>
+                        <h2>Just Hotel</h2>
+                    </div>
+                    <p class="f-para">
+                        "Just Hotel" - it is an excellent place where you can relax, both mentally and physically. Perfect for a pleasant stay with family, 
+                        friends and loved ones. The unique atmosphere of the hotel's restaurants invites you to pleasant conversations, and the exquisite 
+                        cuisine will delight you with its wide selection for every taste. Comfortable, spacious and cozy rooms with gorgeous views of the 
+                        beauty of local nature await you.
+                    </p>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="about-pic">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <img src="img/about-1.jpg" alt="">
+                        </div>
+                        <div class="col-sm-6">
+                            <img src="img/about-2.jpg" alt="">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+<!-- About Us Section End -->

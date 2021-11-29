@@ -1,0 +1,31 @@
+﻿
+@{
+    ViewData["Title"] = "FreeRoomsByDateRange";
+}
+
+<h1>Find free rooms for date</h1>
+
+
+<hr />
+<div class="row">
+    <div class="buttonn-form col-md-4">
+        <form asp-controller="FreeRooms" asp-action="FreeRoomsByDateRangeResult" method="get">
+            <div class="text-danger"></div>
+            <div class="form-group">
+                <label class="control-label">Arrival date</label>
+                <input class="form-control" type="date" name="FirstDate" value="@DateTime.Now.Date.ToString("yyyy-MM-dd")" />
+            </div>
+            <div class="form-group">
+                <label class="control-label">date of departure</label>
+                <input class="form-control" type="date" name="SecondDate" value="@DateTime.Now.Date.ToString("yyyy-MM-dd")" />
+            </div>
+            <div class="form-group">
+                <button type="submit">Search</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div style="margin-bottom: 100px">
+    <a class="text-primary" asp-controller="Room" asp-action="AllRooms">Back</a>
+</div>

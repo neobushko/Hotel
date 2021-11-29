@@ -16,7 +16,6 @@ namespace Hotel.DAL.Enteties
         }
 
         public string Name { get; set; }
-
         public IEnumerable<Record> Records { get; set; }
         public override bool Equals(object obj)
         {

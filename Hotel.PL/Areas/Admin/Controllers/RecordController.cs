@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using Microsoft.AspNetCore.Authorization;
+using AutoMapper;
 using Hotel.BLL.DTO;
 using Hotel.BLL.Interfaces;
 using Hotel.PL.Models;
@@ -9,18 +10,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Hotel.PL.Controllers
+namespace Hotel.PL.Areas.Admin.Controllers
 {
+    [Area("Admin")]
+    [Authorize(Roles = "Admin")]
     public class RecordController : Controller
     {
         private IRecordService recordService;
         private IRoomService roomService;
         private ICategoryService categoryService;
         private IUserService userService;
+         
         private IBaseService baseService;
         private IMapper mapper;
 
-        public RecordController(IRecordService recordService, ICategoryService categoryService, IRoomService roomService, IUserService userService, IBaseService baseService)
+        public RecordController(IRecordService recordService, ICategoryService categoryService, IRoomService roomService, IUserService userService, IBaseService baseService, IPriceForCategoryService priceForCategoryService)
         {
             mapper = new MapperConfiguration(cfg =>
             {
@@ -50,6 +54,17 @@ namespace Hotel.PL.Controllers
                     try
                     {
                         rm.MapFrom(c => userService.Get(c.UserId).Name);
+                    }
+                    catch (NullReferenceException ex)
+                    {
+                        rm.Ignore();
+                    }
+                }).ForMember("Price", rm =>
+                {
+                    try
+                    {
+                        rm.MapFrom(record => priceForCategoryService.GetAll().
+                              SingleOrDefault(p => p.Category.id == record.Room.Category.id && p.EndDate > DateTime.Now && p.StartDate < DateTime.Now).Price);
                     }
                     catch (NullReferenceException ex)
                     {
@@ -137,8 +152,7 @@ namespace Hotel.PL.Controllers
         }
 
         // GET: recordController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
+        [HttpGet]
         public ActionResult Delete(RecordModel record)
         {
             try
@@ -150,6 +164,12 @@ namespace Hotel.PL.Controllers
             {
                 return View("Error");
             }
+        }
+
+        [HttpGet]
+        public ActionResult CheckFreeRooms()
+        {
+            return View();
         }
     }
 }

@@ -16,5 +16,6 @@ namespace Hotel.BLL.Interfaces
         void Update(UserDTO item);
         void Delete(Guid id);
         IEnumerable<UserDTO> GetByPartName(string part);
+        UserDTO GetByPhoneNumber(string part);
     }
 }

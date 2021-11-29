@@ -48,6 +48,10 @@ namespace Hotel.BLL.Services
         {
             return mapper.Map<IEnumerable<User>, IEnumerable<UserDTO>>(_unit.Users.GetAll().Where(s => s.Name.ToLower().Contains(part.ToLower())));
         }
+        public UserDTO GetByPhoneNumber(string part)
+        {
+            return mapper.Map<User, UserDTO>(_unit.Users.GetAll().SingleOrDefault(s => s.PhoneNumber.ToLower().Contains(part.ToLower())));
+        }
 
         public void Update(UserDTO item)
         {

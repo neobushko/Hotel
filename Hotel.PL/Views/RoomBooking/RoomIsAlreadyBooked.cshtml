@@ -1,0 +1,33 @@
+﻿
+@{
+    ViewData["Title"] = "RoomIsAlreadyBooked";
+}
+
+<h1 class="mb-4">Room is booked already</h1>
+<p>We are sorry, but for your choosen dates these room(-s) are booked already, instead You can look for another room(-s).</p>
+
+<div class="btn-group mb-5" role="group" aria-label="Basic example">
+    <form class="ml-3 pr-2 buttonn-form" asp-controller="FreeRooms" asp-action="FreeRoomsNow" method="get">
+        <div class="row">
+            <div class=" col-lg-12">
+
+                <button type="submit">Free rooms for now</button>
+            </div>
+        </div>
+    </form>
+    <form class="pr-2 buttonn-form" asp-controller="FreeRooms" asp-action="FreeRoomsByDate" method="get">
+        <div class="row">
+            <div class="col-lg-12">
+
+                <button type="submit">Free rooms for one night</button>
+            </div>
+        </div>
+    </form>
+    <form class="pr-2 buttonn-form" asp-controller="FreeRooms" asp-action="FreeRoomsByDateRange" method="get">
+        <div class="row">
+            <div class="col-lg-12">
+                <button type="submit">Free rooms for dates</button>
+            </div>
+        </div>
+    </form>
+</div>

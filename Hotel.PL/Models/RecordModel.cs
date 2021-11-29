@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -19,6 +20,7 @@ namespace Hotel.PL.Models
         public DateTime CheckIn { get; set; }
         public DateTime CheckOut { get; set; }
         public decimal Benefit { get; set; }
+        public decimal Price { get; set; }
         public override bool Equals(object obj)
         {
             if (obj is RecordModel)
@@ -31,6 +33,21 @@ namespace Hotel.PL.Models
                     && this.CheckOut == thatObj.CheckOut;
             }
             else return base.Equals(obj);
+        }
+        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+            List<ValidationResult> errors = new List<ValidationResult>();
+
+            if (CheckIn > CheckOut)
+            {
+                errors.Add(new ValidationResult("Дата выезда должна быть раньше, нежели дата въезда :)"));
+            }
+            if (CheckOut < DateTime.Now.Date || CheckIn < DateTime.Now.Date)
+            {
+                errors.Add(new ValidationResult("Нельзя указывать даты из прошлого"));
+            }
+
+            return errors;
         }
     }
 }

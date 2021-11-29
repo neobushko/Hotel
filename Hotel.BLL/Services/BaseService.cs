@@ -49,11 +49,19 @@ namespace Hotel.BLL.Services
             decimal benefitMain = default(Decimal);
             foreach (var record in records)
             {
+                if (!InInterval(startPeriod, endPeriod, record.CheckIn, record.CheckOut))
+                    continue;
                 //point of start into our periodStart
                 IEnumerable<PriceForCategoryDTO> pricesRecord;
                 try
                 {
-                    pricesRecord = prices.Where(p => p.CategoryId == record.Room.CategoryId && this.InInterval(record.CheckIn, record.CheckOut, p.StartDate, p.EndDate));
+                    bool s = false;
+                    foreach (var price in prices)
+                    {
+                        if (price.CategoryId == record.Room.CategoryId && InInterval(record.CheckIn, record.CheckOut, price.StartDate, price.EndDate) && InInterval(startPeriod, endPeriod, price.StartDate, price.EndDate))
+                            s = true;
+                    }
+                    pricesRecord = prices.Where(p => p.CategoryId == record.Room.CategoryId && this.InInterval(record.CheckIn, record.CheckOut, p.StartDate, p.EndDate) && InInterval(startPeriod, endPeriod, p.StartDate, p.EndDate));
                 }
                 catch
                 {
@@ -61,7 +69,9 @@ namespace Hotel.BLL.Services
                 }
                 foreach (var price in pricesRecord)
                 {
-                    benefitMain += (price.Price * (LowestData(record.CheckOut, price.EndDate, endPeriod) - BiggestData(record.CheckIn, price.StartDate, startPeriod)).Days);
+                    var Days = (LowestData(record.CheckOut, price.EndDate, endPeriod) - BiggestData(record.CheckIn, price.StartDate, startPeriod)).Days;
+
+                    benefitMain += (price.Price * (Days < 0 ? 0 : Days));
                 }
             }
             return new BenefitPeriod() { Benefit = benefitMain, Records = records, StartPeriod = startPeriod, EndPeriod = endPeriod };
@@ -111,7 +121,7 @@ namespace Hotel.BLL.Services
         }
         public IEnumerable<RoomDTO> FreeRoomsForDate(DateTime checkIn, DateTime checkOut)
         {
-            IEnumerable<RoomDTO> rooms = mapper.Map<IEnumerable<Room>, IEnumerable<RoomDTO>>(_unit.Rooms.GetAll());
+            IEnumerable<RoomDTO> rooms = mapper.Map<IEnumerable<Room>, IEnumerable<RoomDTO>>(_unit.Rooms.GetAll().Where(s => s.IsActive == true));
             List<RoomDTO> freeRooms = new List<RoomDTO>();
             foreach (var room in rooms)
             {

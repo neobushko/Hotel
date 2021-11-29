@@ -11,6 +11,8 @@ namespace Hotel.PL.Models
         public string Name { get; set; }
         public string PhoneNumber { get; set; }
         public string Email { get; set; }
+        public string Surname { get; set; }
+        public string Address { get; set; }
         public override bool Equals(object obj)
         {
             if (obj is UserModel)

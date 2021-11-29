@@ -41,6 +41,7 @@ namespace Hotel.PL
             services.AddTransient<ICategoryService, CategoryService>();
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IPriceForCategoryService, PriceForCategoryService>();
+            services.AddTransient<IAccountService, AccountService>();
 
             services.AddTransient<SignInManager<User>>();
             services.AddTransient<UserManager<User>>();
@@ -57,6 +58,13 @@ namespace Hotel.PL
             }).AddRoles<IdentityRole<Guid>>()
                 .AddEntityFrameworkStores<HotelContext>();
             services.AddControllersWithViews();
+
+            services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromSeconds(10);
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true;
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -77,11 +85,15 @@ namespace Hotel.PL
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
+                    name: "Admin",
+                    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+                    endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });

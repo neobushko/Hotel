@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using Hotel.BLL.DTO;
 using Hotel.BLL.Interfaces;
-using Hotel.BLL.Services;
 using Hotel.PL.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -52,78 +51,12 @@ namespace Hotel.PL.Controllers
         public ActionResult Details(RoomModel room)
         {
             room.Category = mapper.Map<CategoryDTO, CategoryModel>(categoryService.Get(room.CategoryId));
-            return View("RoomDetails",room);
+            return View("RoomDetails", room);
         }
 
         public ActionResult AllRooms()
         {
-            return View(mapper.Map<IEnumerable<RoomDTO>,IEnumerable<RoomModel>>(roomService.GetAll()));
+            return View(mapper.Map<IEnumerable<RoomDTO>, IEnumerable<RoomModel>>(roomService.GetAll().Where(r => r.IsActive == true)));
         }
-
-        // GET: RoomController/Create
-        public ActionResult Create(RoomModel room)
-        {
-            return View("RoomCreate", room);
-        }
-
-        // POST: RoomController/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult RoomCreate(RoomModel room)
-        {
-            try
-            {
-                var roomDTO = mapper.Map<RoomModel, RoomDTO>(room);
-/*                roomDTO.Category = categoryService.Get(room.CategoryId);*/
-                roomService.Create(roomDTO);
-                return RedirectToAction("AllRooms");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: RoomController/Edit/5
-        public ActionResult Edit(RoomModel room)
-        {
-            return View("RoomEdit",room);
-        }
-
-        // POST: RoomController/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult RoomEdit( RoomModel room)
-        {
-            try
-            {
-                var roomDTO = mapper.Map<RoomModel, RoomDTO>(room);
-                roomDTO.Category = categoryService.Get(room.CategoryId);
-                roomService.Update(roomDTO);
-                return RedirectToAction("AllRooms");
-            }
-            catch
-            {
-                return View("Error");
-            }
-        }
-
-        // GET: RoomController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(RoomModel room)
-        {
-            try
-            {
-                roomService.Delete(room.id);
-                return View("AllRooms");
-            }
-            catch
-            {
-                return View("Error");
-            }
-        }
-
-       
     }
 }
