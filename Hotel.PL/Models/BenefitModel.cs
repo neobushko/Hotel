@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -7,8 +8,11 @@ namespace Hotel.PL.Models
 {
     public class BenefitModel
     {
+        [Display(Name = "Benfit for period")]
         public decimal Benefit { get; set; }
+        [Display(Name = "start of period")]
         public DateTime StartPeriod { get; set; }
+        [Display(Name = "end of period")]
         public DateTime EndPeriod { get; set; }
         public IEnumerable<RecordModel> Records { get; set; }
         public override bool Equals(object obj)

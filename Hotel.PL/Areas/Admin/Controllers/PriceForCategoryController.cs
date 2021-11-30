@@ -96,12 +96,13 @@ namespace Hotel.PL.Areas.Admin.Controllers
 
         // GET: priceCategoryController/Delete/5
         [HttpGet]
-        public ActionResult Delete(PriceForCategoryModel price)
+        public ActionResult Delete(string id)
         {
             try
             {
-                priceCategoryService.Delete(price.id);
-                return View("AllPrices");
+                priceCategoryService.Delete(new Guid(id));
+                var priceList = mapper.Map<IEnumerable<PriceForCategoryDTO>, IEnumerable<PriceForCategoryModel>>(priceCategoryService.GetAll());
+                return View("AllPrices", priceList);
             }
             catch
             {

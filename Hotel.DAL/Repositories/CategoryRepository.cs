@@ -22,8 +22,7 @@ namespace Hotel.DAL.Repositories
 
         public void Create(Category item)
         {
-            if (context.Categories.Find(item.id) != null)
-                throw new ArgumentException($"there is already Room with such id: {item.id}");
+            item.id = Guid.NewGuid();
             context.Categories.Add(item);
         }
 

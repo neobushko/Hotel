@@ -112,7 +112,8 @@ namespace Hotel.PL.Areas.Admin.Controllers
             try
             {
                 categoryService.Delete(category.id);
-                return View("AllCategories");
+                var categoryList = mapper.Map<IEnumerable<CategoryDTO>, IEnumerable<CategoryModel>>(categoryService.GetAll());
+                return View("AllCategories", categoryList);
             }
             catch
             {

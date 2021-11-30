@@ -158,7 +158,8 @@ namespace Hotel.PL.Areas.Admin.Controllers
             try
             {
                 recordService.Delete(record.id);
-                return View("AllRecords");
+                var recordList = mapper.Map<IEnumerable<RecordDTO>, IEnumerable<RecordModel>>(recordService.GetAll());
+                return View("AllRecords", recordList);
             }
             catch
             {

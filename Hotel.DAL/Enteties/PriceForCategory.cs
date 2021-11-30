@@ -14,7 +14,6 @@ namespace Hotel.DAL.Enteties
         {
             id = Guid.NewGuid();
         }
-        private decimal _price;
         [Key]
         public Guid id { get; set; }
         [Required]

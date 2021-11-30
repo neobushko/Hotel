@@ -41,7 +41,11 @@
                 @Html.DisplayFor(modelItem => item.Description)
             </td>
             <td>
-                @Html.ActionLink("Details and book", "Details", item) |
+                @Html.ActionLink("Details", "Details", item)
+                <form class="buttonn-form mb-3" asp-controller="RoomBooking" asp-action="DoRecordRoom" method="get">
+                    <input type="hidden" value="" />
+                    <button name="id" value=@item.id.ToString() type="submit">Book this Room</button>
+                </form>
             </td>
         </tr>
 }

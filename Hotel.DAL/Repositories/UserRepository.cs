@@ -21,8 +21,7 @@ namespace Hotel.DAL.Repositories
 
         public void Create(User item)
         {
-            if (context.Users.Find(item.Id) != null)
-                throw new ArgumentException();
+            item.Id = Guid.NewGuid();
             context.Users.Add(item);
         }
 

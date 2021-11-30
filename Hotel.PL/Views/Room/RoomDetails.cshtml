@@ -42,9 +42,9 @@
         </dd>
     </dl>
 </div>
-<form class="buttonn-form mb-3" asp-controller="RoomBooking" asp-action="DoBookingRoom" method="post">
+<form class="buttonn-form mb-3" asp-controller="RoomBooking" asp-action="DoRecordRoom" method="get">
     <input type="hidden" value="" />
-    <button name="room" value=@Model type="submit">Book this Room</button>
+    <button name="id" value=@Model.id.ToString() type="submit">Book this Room</button>
 </form>
 <div>
     <a asp-action="AllRooms">Back to List</a>

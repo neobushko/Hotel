@@ -95,7 +95,8 @@ namespace Hotel.PL.Areas.Admin.Controllers
             try
             {
                 userService.Delete(user.id);
-                return View("AllUsers");
+                var userList = mapper.Map<IEnumerable<UserDTO>, IEnumerable<UserModel>>(userService.GetAll());
+                return View("AllUsers", userList);
             }
             catch
             {

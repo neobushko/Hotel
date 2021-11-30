@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Hotel.PL.RequestModels;
 
 namespace Hotel.PL.Areas.Admin.Controllers
 {
@@ -77,7 +78,6 @@ namespace Hotel.PL.Areas.Admin.Controllers
             try
             {
                 var roomDTO = mapper.Map<RoomModel, RoomDTO>(room);
-/*                roomDTO.Category = categoryService.Get(room.CategoryId);*/
                 roomService.Create(roomDTO);
                 return RedirectToAction("AllRooms");
             }
@@ -118,7 +118,8 @@ namespace Hotel.PL.Areas.Admin.Controllers
             try
             {
                 roomService.Delete(room.id);
-                return View("AllRooms");
+                var roomList = mapper.Map<IEnumerable<RoomDTO>, IEnumerable<RoomModel>>(roomService.GetAll());
+                return View("AllRooms", roomList);
             }
             catch
             {

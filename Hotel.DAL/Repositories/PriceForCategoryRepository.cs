@@ -21,7 +21,9 @@ namespace Hotel.DAL.Repositories
 
         public void Create(PriceForCategory item)
         {
-            if (_hotelContext.Prices.Find(item.id) != null || item.Price < 0 || item.EndDate < item.StartDate)
+            item.id = Guid.NewGuid();
+            item.Category = null;
+            if (item.Price < 0 || item.EndDate < item.StartDate)
                 throw new ArgumentException("wrong info");
             else if(_hotelContext.Categories.Find(item.CategoryId) == null)
                 throw new ArgumentException("wrong category id");
@@ -52,7 +54,7 @@ namespace Hotel.DAL.Repositories
             price.id = item.id;
             if (_hotelContext.Categories.Find(item.CategoryId) != null)
             {
-                price.Category = item.Category;
+                price.Category = _hotelContext.Categories.Find(item.CategoryId);
                 price.CategoryId = item.CategoryId;
             }
             if (item.EndDate > item.StartDate)
@@ -60,7 +62,7 @@ namespace Hotel.DAL.Repositories
                 price.StartDate = item.StartDate;
                 price.EndDate = item.EndDate;
             }
-            if (item.Price <= 0)
+            if (item.Price > 0)
                 price.Price = item.Price;
             price.Name = item.Name ?? price.Name;
         }

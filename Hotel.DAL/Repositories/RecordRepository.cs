@@ -21,9 +21,10 @@ namespace Hotel.DAL.Repositories
 
         public void Create(Record item)
         {
-            if (context.Records.Find(item.id) != null)
-                throw new ArgumentException("wrong id");
-            else if (context.Users.Find(item.UserId) == null)
+            item.id = Guid.NewGuid();
+            item.User = null;
+            item.Room = null;
+            if (context.Users.Find(item.UserId) == null)
                 throw new ArgumentException("wrong user id");
             else if (context.Rooms.Find(item.RoomId) == null)
                 throw new ArgumentException("wrong room id");

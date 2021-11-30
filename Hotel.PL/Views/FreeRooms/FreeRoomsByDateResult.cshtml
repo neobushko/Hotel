@@ -47,7 +47,11 @@
                     @Html.DisplayFor(modelItem => item.IsActive)
                 </td>
                 <td>
-                    <a asp-controller="Room" asp-action="Details and book" value="@item" class="primary-btn">Details</a>
+                    <a asp-controller="Room" asp-action="Details" value="@item" class="primary-btn">Details |</a>
+                    <form class="buttonn-form mb-3" asp-controller="RoomBooking" asp-action="DoRecordRoom" method="get">
+                        <input type="hidden" value="" />
+                        <button name="id" value=@item.id.ToString() type="submit">Book this Room</button>
+                    </form>
                 </td>
             </tr>
         }

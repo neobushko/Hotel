@@ -32,8 +32,7 @@ namespace Hotel.BLL.Services
         }
         public void Create(RecordDTO item)
         {
-
-            if (this.BaseService.IsFreeRoom(item.RoomId, item.CheckIn, item.CheckOut) && item.CheckOut.Day > item.CheckIn.Day)
+            if (this.BaseService.IsFreeRoom(item.RoomId, item.CheckIn, item.CheckOut) && item.CheckOut.Date > item.CheckIn.Date)
             {
                 _unit.Records.Create(mapper.Map<RecordDTO, Record>(item));
                 _unit.Save();

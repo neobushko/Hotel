@@ -38,50 +38,50 @@ namespace Hotel.PL.Controllers
                 {
                     cfg.CreateMap<UserDTO, UserModel>();
                     cfg.CreateMap<UserDTO, User>();
-                    cfg.CreateMap<RecordDTO, RecordModel>();
-                    cfg.CreateMap< RecordModel, RecordDTO>().ForMember("CategoryName", rm =>
-                    {
-                        try
+                    cfg.CreateMap<RecordModel, RecordDTO>();
+                    cfg.CreateMap<RecordDTO, RecordModel>().ForMember("CategoryName", rm =>
                         {
-                            rm.MapFrom(c => categoryService.GetAll().
-                                  SingleOrDefault(p => p.id == c.Room.CategoryId).Name);
-                        }
-                        catch (NullReferenceException ex)
+                            try
+                            {
+                                rm.MapFrom(c => categoryService.GetAll().
+                                      SingleOrDefault(p => p.id == c.Room.CategoryId).Name);
+                            }
+                            catch (NullReferenceException ex)
+                            {
+                                rm.Ignore();
+                            }
+                        }).ForMember("RoomNumber", rm =>
                         {
-                            rm.Ignore();
-                        }
-                    }).ForMember("RoomNumber", rm =>
-                    {
-                        try
+                            try
+                            {
+                                rm.MapFrom(c => roomService.Get(c.RoomId).Number);
+                            }
+                            catch (NullReferenceException ex)
+                            {
+                                rm.Ignore();
+                            }
+                        }).ForMember("UserName", rm =>
                         {
-                            rm.MapFrom(c => roomService.Get(c.RoomId).Number);
-                        }
-                        catch (NullReferenceException ex)
+                            try
+                            {
+                                rm.MapFrom(c => userService.Get(c.UserId).Name);
+                            }
+                            catch (NullReferenceException ex)
+                            {
+                                rm.Ignore();
+                            }
+                        }).ForMember("Price", rm =>
                         {
-                            rm.Ignore();
-                        }
-                    }).ForMember("UserName", rm =>
-                    {
-                        try
-                        {
-                            rm.MapFrom(c => userService.Get(c.UserId).Name);
-                        }
-                        catch (NullReferenceException ex)
-                        {
-                            rm.Ignore();
-                        }
-                    }).ForMember("Price", rm =>
-                    {
-                        try
-                        {
-                            rm.MapFrom(record => priceForCategoryService.GetAll().
-                                  SingleOrDefault(p => p.Category.id == record.Room.Category.id && p.EndDate > DateTime.Now && p.StartDate < DateTime.Now).Price);
-                        }
-                        catch (NullReferenceException ex)
-                        {
-                            rm.Ignore();
-                        }
-                    });
+                            try
+                            {
+                                rm.MapFrom(record => priceForCategoryService.GetAll().
+                                      SingleOrDefault(p => p.Category.id == record.Room.Category.id && p.EndDate > DateTime.Now && p.StartDate < DateTime.Now).Price);
+                            }
+                            catch (NullReferenceException ex)
+                            {
+                                rm.Ignore();
+                            }
+                        });
                     cfg.CreateMap<RoomDTO, RoomModel>().ForMember("Price", rm =>
                     {
                         try
@@ -131,7 +131,7 @@ namespace Hotel.PL.Controllers
                     user.Name = model.Name;
                     user.UserName = model.PhoneNumber;
                     user.PhoneNumber = model.PhoneNumber;
-
+                    user.Email = model.Email;
 
 
                     var result = await userManager.UpdateAsync(user);

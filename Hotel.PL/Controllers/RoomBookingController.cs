@@ -70,7 +70,19 @@ namespace Hotel.PL.Controllers
                     }
                 });
                 cfg.CreateMap<UserDTO, UserModel>().ReverseMap();
-                cfg.CreateMap<RoomDTO, RoomModel>().ReverseMap();
+                cfg.CreateMap<RoomDTO, RoomModel>().ForMember("Price", rm =>
+                {
+                    try
+                    {
+                        rm.MapFrom(r => priceForCategoryService.GetAll().
+                              SingleOrDefault(p => p.Category.id == r.Category.id && p.EndDate > DateTime.Now && p.StartDate < DateTime.Now).Price);
+                    }
+                    catch (NullReferenceException ex)
+                    {
+                        rm.Ignore();
+                    }
+                });
+                cfg.CreateMap<RoomModel, RoomDTO>();
                 cfg.CreateMap<CategoryDTO, CategoryModel>().ReverseMap();
                 cfg.CreateMap<RecordModel, RecordDTO>();
                 
@@ -85,12 +97,16 @@ namespace Hotel.PL.Controllers
         }
 
 
-        [HttpPost]
-        public ActionResult DoRecordRoom(RoomModel room)
+        [HttpGet]
+        public ActionResult DoRecordRoom(string id)
         {
-            var roomModel = mapper.Map<RoomDTO,RoomModel>(roomService.Get(room.id));
+            var roomModel = mapper.Map<RoomDTO, RoomModel>(roomService.Get(new Guid(id)));
             var recordModel = new RecordModel();
-            return View("DoRecord", roomModel);
+            recordModel.RoomId = roomModel.id;
+            recordModel.CategoryName = roomModel.Category.Name;
+            recordModel.Price = roomModel.Price;
+            recordModel.RoomNumber = roomModel.Number;
+            return View("DoRecord", recordModel);
         }
 
         [HttpPost]
@@ -102,10 +118,8 @@ namespace Hotel.PL.Controllers
             {
                 try
                 {
-                    record.User = mapper.Map<UserDTO, UserModel>(userService.GetByPhoneNumber(User.Identity.Name));
-
+                    record.UserId = mapper.Map<UserDTO, UserModel>(userService.GetByPhoneNumber(User.Identity.Name)).id;
                     recordService.Create(mapper.Map<RecordModel, RecordDTO>(record));
-                    
                     return RedirectToAction("AllRooms", "Room");
                 }
                 catch (ArgumentException ex)
