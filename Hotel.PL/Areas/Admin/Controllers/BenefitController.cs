@@ -68,7 +68,7 @@ namespace Hotel.PL.Areas.Admin.Controllers
         // GET: BaseController/Details/5
         public ActionResult BenefitWithRecords()
         {
-            IEnumerable<RecordModel> records = mapper.Map<IEnumerable<RecordDTO>, IEnumerable<RecordModel>>(recordService.GetAll());
+            IEnumerable<RecordModel> records = mapper.Map<IEnumerable<RecordDTO>, IEnumerable<RecordModel>>(recordService.GetAll().OrderBy(s => s.CheckIn));
             return View("BenefitDateInput");
         }
 

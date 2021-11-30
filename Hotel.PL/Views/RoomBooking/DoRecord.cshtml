@@ -4,9 +4,9 @@
     ViewData["Title"] = "DoRecord";
 }
 
-<h1>DoRecord</h1>
+<h1>Booking</h1>
 
-<h4>RecordModel</h4>
+<h4>@Model.RoomNumber - @Model.CategoryName</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -46,7 +46,7 @@
 </div>
 
 <div>
-    <a asp-action="AllRooms">Back to List</a>
+    <a asp-action="AllRooms" asp-controller="Room">Back to List</a>
 </div>
 
 @section Scripts {

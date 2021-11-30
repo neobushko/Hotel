@@ -4,9 +4,9 @@
     ViewData["Title"] = "RoomEdit";
 }
 
-<h1>RoomEdit</h1>
+<h1>Room Editing</h1>
 
-<h4>RoomModel</h4>
+<h4>@Model.Number - @Model.Category.Name</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -24,7 +24,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="CategoryId" class="control-label"></label>
-                <input asp-for="CategoryId" class="form-control" />
+                <input asp-for="CategoryId" value="@Model.CategoryId" class="form-control" />
                 <span asp-validation-for="CategoryId" class="text-danger"></span>
             </div>
             <div class="form-group">

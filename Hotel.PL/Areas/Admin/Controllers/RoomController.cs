@@ -61,7 +61,7 @@ namespace Hotel.PL.Areas.Admin.Controllers
 
         public ActionResult AllRooms()
         {
-            return View(mapper.Map<IEnumerable<RoomDTO>,IEnumerable<RoomModel>>(roomService.GetAll()));
+            return View(mapper.Map<IEnumerable<RoomDTO>,IEnumerable<RoomModel>>(roomService.GetAll().OrderBy(r => r.Number)));
         }
 
         // GET: RoomController/Create
@@ -118,7 +118,7 @@ namespace Hotel.PL.Areas.Admin.Controllers
             try
             {
                 roomService.Delete(room.id);
-                var roomList = mapper.Map<IEnumerable<RoomDTO>, IEnumerable<RoomModel>>(roomService.GetAll());
+                var roomList = mapper.Map<IEnumerable<RoomDTO>, IEnumerable<RoomModel>>(roomService.GetAll().OrderBy(r => r.Number));
                 return View("AllRooms", roomList);
             }
             catch

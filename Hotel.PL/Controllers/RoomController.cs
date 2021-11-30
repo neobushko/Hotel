@@ -56,7 +56,7 @@ namespace Hotel.PL.Controllers
 
         public ActionResult AllRooms()
         {
-            return View(mapper.Map<IEnumerable<RoomDTO>, IEnumerable<RoomModel>>(roomService.GetAll().Where(r => r.IsActive == true)));
+            return View(mapper.Map<IEnumerable<RoomDTO>, IEnumerable<RoomModel>>(roomService.GetAll().Where(r => r.IsActive == true).OrderBy(r => r.Number)));
         }
     }
 }

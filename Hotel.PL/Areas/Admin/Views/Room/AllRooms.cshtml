@@ -4,7 +4,7 @@
     ViewData["Title"] = "AllRooms";
 }
 
-<h1>AllRooms</h1>
+<h1>All Rooms</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -52,13 +52,8 @@
                 @Html.DisplayFor(modelItem => item.IsActive)
             </td>
             <td>
-@*                <form asp-action="Delete" asp-controller="Room" method="post">
-                    <input asp-for="@item.id" value="@item.id" hidden />
-                    <input type="submit" value="Delete" class="btn" />
-                </form>*@
                 @Html.ActionLink("Edit", "Edit", item) |
                 @Html.ActionLink("Details", "Details", item) |
-
                 @Html.ActionLink("Delete", "Delete", item)
             </td>
         </tr>

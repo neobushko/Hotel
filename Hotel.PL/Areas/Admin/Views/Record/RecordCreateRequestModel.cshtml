@@ -1,0 +1,52 @@
+﻿@model Hotel.PL.RequestModels.RecordRequestModel
+
+@{
+    ViewData["Title"] = "RecordCreateRequestModel";
+}
+
+<h1>RecordRequestCreate</h1>
+
+<h4>RecordRequestModel</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="RecordCreateRequestModel" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <select asp-for="RoomId">@foreach (var room in Model.rooms)
+                {
+                    <option value="@room.id">@room.Number - @room.Category.Name </option>
+                    }
+                </select>
+            </div>
+        <div class="form-group">
+            <select asp-for="RoomId">
+                @foreach (var user in Model.users)
+                {
+                    <option value="@user.id">@user.Name - @user.PhoneNumber </option>
+                }
+        </select>
+        </div>
+            <div class="form-group">
+                <label asp-for="CheckIn" class="control-label"></label>
+                <input asp-for="CheckIn" value="@DateTime.Today.Date" class="form-control" />
+                <span asp-validation-for="CheckIn" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CheckOut" class="control-label"></label>
+                <input asp-for="CheckOut"value="@DateTime.Today.Date" class="form-control" />
+                <span asp-validation-for="CheckOut" class="text-danger"></span>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

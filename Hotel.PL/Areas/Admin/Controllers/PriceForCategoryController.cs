@@ -44,7 +44,7 @@ namespace Hotel.PL.Areas.Admin.Controllers
 
         public ActionResult AllPrices()
         {
-            return View(mapper.Map<IEnumerable<PriceForCategoryDTO>, IEnumerable<PriceForCategoryModel>>(priceCategoryService.GetAll()));
+            return View(mapper.Map<IEnumerable<PriceForCategoryDTO>, IEnumerable<PriceForCategoryModel>>(priceCategoryService.GetAll().OrderBy(p => p.Name)));
         }
 
         // GET: priceCategoryController/Create
@@ -101,7 +101,7 @@ namespace Hotel.PL.Areas.Admin.Controllers
             try
             {
                 priceCategoryService.Delete(new Guid(id));
-                var priceList = mapper.Map<IEnumerable<PriceForCategoryDTO>, IEnumerable<PriceForCategoryModel>>(priceCategoryService.GetAll());
+                var priceList = mapper.Map<IEnumerable<PriceForCategoryDTO>, IEnumerable<PriceForCategoryModel>>(priceCategoryService.GetAll().OrderBy(p => p.Name));
                 return View("AllPrices", priceList);
             }
             catch

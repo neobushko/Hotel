@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Hotel.PL.RequestModels;
 
 namespace Hotel.PL.Areas.Admin.Controllers
 {
@@ -75,6 +76,8 @@ namespace Hotel.PL.Areas.Admin.Controllers
                 cfg.CreateMap<RoomDTO, RoomModel>().ReverseMap();
                 cfg.CreateMap<CategoryDTO, CategoryModel>().ReverseMap();
                 cfg.CreateMap<RecordModel, RecordDTO>();
+                cfg.CreateMap<RecordModel, RecordRequestModel>().ReverseMap();
+                cfg.CreateMap<RecordRequestModel, RecordDTO>();
             }).CreateMapper();
             this.recordService = recordService;
             this.categoryService = categoryService;
@@ -100,13 +103,19 @@ namespace Hotel.PL.Areas.Admin.Controllers
 
         public ActionResult AllRecords()
         {
-            return View(mapper.Map<IEnumerable<RecordDTO>, IEnumerable<RecordModel>>(recordService.GetAll()));
+            return View(mapper.Map<IEnumerable<RecordDTO>, IEnumerable<RecordModel>>(recordService.GetAll().OrderBy(r => r.CheckIn)));
         }
-
-        // GET: recordController/Create
         public ActionResult Create(RecordModel record)
         {
             return View("RecordCreate", record);
+        }
+        // GET: recordController/Create
+        public ActionResult CreateRequest(RecordModel record)
+        {
+            var rr = mapper.Map<RecordModel, RecordRequestModel>(record);
+            rr.users = userService.GetAll();
+            rr.rooms = roomService.GetAll();
+            return View("RecordCreateRequestModel", rr);
         }
 
         // POST: recordController/Create
@@ -119,6 +128,24 @@ namespace Hotel.PL.Areas.Admin.Controllers
                 var recordDTO = mapper.Map<RecordModel, RecordDTO>(record);
                 recordDTO.User = null;
                 recordDTO.Room = null;
+                recordService.Create(recordDTO);
+                return RedirectToAction("AllRecords");
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult RecordCreateRequestModel(RecordRequestModel record)
+        {
+            try
+            {
+                record.User = null;
+                record.Room = null;
+                var recordDTO = mapper.Map<RecordRequestModel, RecordDTO>(record);
                 recordService.Create(recordDTO);
                 return RedirectToAction("AllRecords");
             }
@@ -158,7 +185,7 @@ namespace Hotel.PL.Areas.Admin.Controllers
             try
             {
                 recordService.Delete(record.id);
-                var recordList = mapper.Map<IEnumerable<RecordDTO>, IEnumerable<RecordModel>>(recordService.GetAll());
+                var recordList = mapper.Map<IEnumerable<RecordDTO>, IEnumerable<RecordModel>>(recordService.GetAll().OrderBy(r => r.CheckIn));
                 return View("AllRecords", recordList);
             }
             catch

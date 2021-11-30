@@ -4,9 +4,9 @@
     ViewData["Title"] = "CategoryEdit";
 }
 
-<h1>CategoryEdit</h1>
+<h1>Category Editing</h1>
 
-<h4>CategoryModel</h4>
+<h4>@Model.Name</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -14,7 +14,7 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="id" class="control-label"></label>
-                <input asp-for="id" class="form-control" readonly/>
+                <input asp-for="id" class="form-control" readonly />
                 <span asp-validation-for="id" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -28,6 +28,11 @@
                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="Price" class="control-label"></label>
+                <p class="form-control u-grey" >@Model.Price</p>
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>
         </form>
@@ -35,7 +40,7 @@
 </div>
 
 <div>
-    <a asp-action="AllCategories">Back to List</a>
+    <a asp-action="AllCategories">Back</a>
 </div>
 
 @section Scripts {

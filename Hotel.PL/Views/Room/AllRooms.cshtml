@@ -5,8 +5,27 @@
 }
 
 <h1>Rooms list</h1>
-
-
+<br />
+<br />
+<br />
+<br />
+<br />
+<form method="get" asp-area="" asp-controller="FreeRooms" asp-action="FreeRoomsNow" class="u-align-center">
+    <button class="btn btn-primary" type="submit">Find room to stay for today</button>
+</form>
+<br />
+<form method="get" asp-area="" asp-controller="FreeRooms" asp-action="FreeRoomsByDate" class="u-align-center">
+    <button class="btn btn-primary" type="submit">Find room to stay for one night</button>
+</form>
+<br />
+<form method="get" asp-area="" asp-controller="FreeRooms" asp-action="FreeRoomsByDateRange" class="u-align-center">
+    <button class="btn btn-primary" type="submit">Find room to stay for period</button>
+</form>
+<br />
+<br />
+<br />
+<br />
+<br />
 <table class="table">
     <thead>
         <tr>
@@ -26,37 +45,30 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Number)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Category.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Price)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.ActionLink("Details", "Details", item)
-                <form class="buttonn-form mb-3" asp-controller="RoomBooking" asp-action="DoRecordRoom" method="get">
-                    <input type="hidden" value="" />
-                    <button name="id" value=@item.id.ToString() type="submit">Book this Room</button>
-                </form>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Number)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Category.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.ActionLink("Details", "Details", item)
+                    <form class="buttonn-form mb-3" asp-controller="RoomBooking" asp-action="DoRecordRoom" method="get">
+                        <input type="hidden" value="" />
+                        <button name="id" value=@item.id.ToString() type="submit">Book this Room</button>
+                    </form>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
-<form method="get" asp-area="" asp-controller="FreeRooms" asp-action="FreeRoomsNow">
-    <button class="btn btn-primary" type="submit">Find room to stay for today</button>
-</form>
-<form method="get" asp-area="" asp-controller="FreeRooms" asp-action="FreeRoomsByDate">
-    <button class="btn btn-primary" type="submit">Find room to stay for one night</button>
-</form>
-<form method="get" asp-area="" asp-controller="FreeRooms" asp-action="FreeRoomsByDateRange">
-    <button class="btn btn-primary" type="submit">Find room to stay for period</button>
-</form>
+

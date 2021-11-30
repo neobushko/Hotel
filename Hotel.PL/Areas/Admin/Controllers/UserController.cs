@@ -39,7 +39,7 @@ namespace Hotel.PL.Areas.Admin.Controllers
 
         public ActionResult AllUsers()
         {
-            return View(mapper.Map<IEnumerable<UserDTO>, IEnumerable<UserModel>>(userService.GetAll()));
+            return View(mapper.Map<IEnumerable<UserDTO>, IEnumerable<UserModel>>(userService.GetAll().OrderBy(u => u.Name)));
         }
 
         // GET: userController/Create
@@ -95,7 +95,7 @@ namespace Hotel.PL.Areas.Admin.Controllers
             try
             {
                 userService.Delete(user.id);
-                var userList = mapper.Map<IEnumerable<UserDTO>, IEnumerable<UserModel>>(userService.GetAll());
+                var userList = mapper.Map<IEnumerable<UserDTO>, IEnumerable<UserModel>>(userService.GetAll().OrderBy(u => u.Name));
                 return View("AllUsers", userList);
             }
             catch

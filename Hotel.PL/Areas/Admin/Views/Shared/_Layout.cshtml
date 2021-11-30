@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="~/css/my-css/main.css" type="text/css">
     <link rel="stylesheet" href="~/css/my-css/nicepage.css" type="text/css">
     <link rel="stylesheet" href="~/css/my-css/Post-Template.css" type="text/css">
+    <link rel="stylesheet" href="~/css/site.css" type="text/css" />
     <link href="https://fonts.googleapis.com/css?family=Lora:400,700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Cabin:400,500,600,700&display=swap" rel="stylesheet">
     <link id="u-theme-google-font" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i|Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i">
@@ -37,10 +38,10 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Room" asp-action="AllRooms" method="get">Room list</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Room" asp-action="AllRooms" method="get">Room list</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="MyAccount" asp-action="Index" method="get">My cabinet</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="MyAccount" asp-action="Index" method="get">My cabinet</a>
                         </li>
                     </ul>
                     @Html.PartialAsync("_LoginPartial").Result

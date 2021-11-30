@@ -4,10 +4,10 @@
     ViewData["Title"] = "RoomDetails";
 }
 
-<h1>RoomDetails</h1>
+<h1>Room Details</h1>
 
 <div>
-    <h4>RoomModel</h4>
+    <h4>@Model.Number - @Model.Category.Name</h4>
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
@@ -47,5 +47,5 @@
     <button name="id" value=@Model.id.ToString() type="submit">Book this Room</button>
 </form>
 <div>
-    <a asp-action="AllRooms">Back to List</a>
+    <a asp-action="AllRooms">Back</a>
 </div>

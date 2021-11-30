@@ -1,4 +1,5 @@
-﻿using Hotel.BLL.Interfaces;
+﻿using Hotel.BLL.DTO;
+using Hotel.BLL.Interfaces;
 using Hotel.PL.Models;
 using System;
 using System.Collections.Generic;
@@ -9,11 +10,6 @@ namespace Hotel.PL.RequestModels
 {
     public class RecordRequestModel
     {
-        public RecordRequestModel(IUserService userService, IRoomService roomService)
-        {
-            this.userService = userService;
-            this.roomService = roomService;
-        }
         public Guid id { get; set; }
         public Guid RoomId { get; set; }
         public RoomModel Room { get; set; }
@@ -27,7 +23,7 @@ namespace Hotel.PL.RequestModels
         public DateTime CheckOut { get; set; }
         public decimal Benefit { get; set; }
         public decimal Price { get; set; }
-        public IUserService userService { get; set; }
-        public IRoomService roomService { get; set; }
+        public IEnumerable<RoomDTO> rooms  { get; set; }
+        public IEnumerable<UserDTO> users { get; set; }
     }
 }

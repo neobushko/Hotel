@@ -8,20 +8,20 @@ namespace Hotel.PL.ViewModels
 {
     public class ChangePasswordViewModel
     {
-        [Display(Name = "Старый пароль")]
+        [Display(Name = "Old password")]
         [DataType(DataType.Password)]
-        [Required(ErrorMessage = "Заполните поле")]
+        [Required(ErrorMessage = "fill this!")]
         public string OldPassword { get; set; }
 
-        [Display(Name = "Новый пароль")]
+        [Display(Name = "New passsword")]
         [DataType(DataType.Password)]
-        [Required(ErrorMessage = "Заполните поле")]
+        [Required(ErrorMessage = "fill this!")]
         public string NewPassword { get; set; }
 
-        [Compare("NewPassword", ErrorMessage = "Пароли не совпадают")]
+        [Compare("NewPassword", ErrorMessage = "Passwords do not match")]
         [DataType(DataType.Password)]
-        [Display(Name = "Подтвердить пароль")]
-        [Required(ErrorMessage = "Заполните поле")]
+        [Display(Name = "Confirm new password")]
+        [Required(ErrorMessage = "fill this!")]
         public string ConfirmNewPassword { get; set; }
     }
 }

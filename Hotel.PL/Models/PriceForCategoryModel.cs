@@ -8,20 +8,20 @@ namespace Hotel.PL.Models
 {
     public class PriceForCategoryModel
     {
-        [Display(Name = "id of price for category")]
+        [Display(Name = "id of price")]
         public Guid id { get; set; }
-        [Display(Name = "Name price for category")]
+        [Display(Name = "Name of price")]
         public string Name { get; set; }
         [Display(Name = "Category id")]
         public Guid CategoryId { get; set; }
         public CategoryModel Category { get; set; }
-        [Display(Name = "price per 1 night")]
+        [Display(Name = "cost per night")]
         public decimal Price { get; set; }
         [Display(Name = "Category name")]
         public string CategoryName { get; set; }
-        [Display(Name = "startpoint for price")]
+        [Display(Name = "startpoint date")]
         public DateTime StartDate { get; set; }
-        [Display(Name = "endpoint for price")]
+        [Display(Name = "endpoint date")]
         public DateTime EndDate { get; set; }
         public override bool Equals(object obj)
         {

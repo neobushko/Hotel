@@ -51,7 +51,7 @@ namespace Hotel.PL.Areas.Admin.Controllers
         }
         public ActionResult AllCategories()
         {
-            return View(mapper.Map<IEnumerable<CategoryDTO>, IEnumerable<CategoryModel>>(categoryService.GetAll()));
+            return View(mapper.Map<IEnumerable<CategoryDTO>, IEnumerable<CategoryModel>>(categoryService.GetAll().OrderBy(c => c.Name)));
         }
         // GET: CategoryController/Details/5
         public ActionResult Details(CategoryModel category)
@@ -112,7 +112,7 @@ namespace Hotel.PL.Areas.Admin.Controllers
             try
             {
                 categoryService.Delete(category.id);
-                var categoryList = mapper.Map<IEnumerable<CategoryDTO>, IEnumerable<CategoryModel>>(categoryService.GetAll());
+                var categoryList = mapper.Map<IEnumerable<CategoryDTO>, IEnumerable<CategoryModel>>(categoryService.GetAll().OrderBy(c => c.Name));
                 return View("AllCategories", categoryList);
             }
             catch

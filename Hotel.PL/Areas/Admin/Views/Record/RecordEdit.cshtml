@@ -4,9 +4,9 @@
     ViewData["Title"] = "RecordEdit";
 }
 
-<h1>RecordEdit</h1>
+<h1>Record Editing</h1>
 
-<h4>RecordModel</h4>
+<h4>@Model.RoomNumber - @Model.UserName (@Model.CheckIn.Date => @Model.CheckOut.Date)</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -19,12 +19,12 @@
             </div>
             <div class="form-group">
                 <label asp-for="RoomId" class="control-label"></label>
-                <input asp-for="RoomId" class="form-control" />
+                <input asp-for="RoomId" value="@Model.RoomId" class="form-control" />
                 <span asp-validation-for="RoomId" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="UserId" class="control-label"></label>
-                <input asp-for="UserId" class="form-control" />
+                <input asp-for="UserId" value="@Model.UserId" class="form-control" />
                 <span asp-validation-for="UserId" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -45,7 +45,7 @@
 </div>
 
 <div>
-    <a asp-action="AllRecords">Back to List</a>
+    <a asp-action="AllRecords">Back</a>
 </div>
 
 @section Scripts {
